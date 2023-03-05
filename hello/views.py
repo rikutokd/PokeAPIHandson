@@ -27,6 +27,13 @@ def showIndex(request):
         return htmlOutput
 
     def makeHTML(image_url, id, name, type):
+        typePart = ""
+        typePart += setColor(type[0])
+        if len(type) == 2:
+            typePart += setColor(type[1])
+        elif len(type) == 1:
+            typePart += '<li class="list-group-item" style="opacity:0">' + 'hoge' + '</li>'
+
         result = ""
 
         result += '<div class="card" style="width: 10rem; float: left;">'
@@ -34,7 +41,7 @@ def showIndex(request):
         result += '<ul class="list-group list-group-flush">'
         result += '<li class="list-group-item">' + str(id) + '</li>'
         result += '<li class="list-group-item">' + name + '</li>'
-        result += '<li class="list-group-item">' + str(type ) + '</li>'
+        result += typePart
         result += '</ul>'
         result += '</div>'
 
@@ -50,3 +57,22 @@ def showIndex(request):
         'htmlOutput' : htmlOutput
     }
     return render(request, 'index.html', data)
+
+def setColor(type):
+    result = ""
+    if type == "grass":
+        result += '<li class="list-group-item" style="background-color:#198754; color:white">' + type + '</li>'
+    elif type == "poison":
+        result += '<li class="list-group-item" style="background-color:#6f42c1; color:white">' + type + '</li>'
+    elif type == "fire":
+        result += '<li class="list-group-item" style="background-color:#fd7e14; color:white">' + type + '</li>'
+    elif type == "flying":
+        result += '<li class="list-group-item" style="background-color:#0dcaf0; color:white">' + type + '</li>'
+    elif type == "water":
+        result += '<li class="list-group-item" style="background-color:#0d6efd; color:white">' + type + '</li>'
+    elif type == "bug":
+        result += '<li class="list-group-item" style="background-color:#99cc66; color:white">' + type + '</li>'
+    elif type == "normal":
+        result += '<li class="list-group-item" style="background-color:#adb5bd; color:white">' + type + '</li>'
+
+    return result
