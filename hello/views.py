@@ -3,11 +3,23 @@ from django.shortcuts import render
 import requests
 
 def showIndex(request):
+    def makeHTML(image_url, id, name, type):
+        result = ""
+
+        result += '<div class="card" style="width: 18rem;">'
+        result += '<img class="bd-placeholder-img card-img-top" width="100%" height="280" src="' + image_url + '" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Image cap"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"/><text x="50%" y="50%" fill="#dee2e6" dy=".3em"></text></img>'
+        result += '<ul class="list-group list-group-flush">'
+        result += '<li class="list-group-item">' + str(id) + '</li>'
+        result += '<li class="list-group-item">' + name + '</li>'
+        result += '<li class="list-group-item">' + str(type ) + '</li>'
+        result += '</ul>'
+        result += '</div>'
+
+        return result
+    
+    htmlOutput = makeHTML(image_url, id, name, type)
     data = {
-        'image_url' : image_url,
-        'id' : id,
-        'name' : name,
-        'types' : type,
+        'htmlOutput' : htmlOutput
     }
     return render(request, 'index.html', data)
 
